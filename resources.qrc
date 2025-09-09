@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>icons/plane.png</file>
+        <file>icons/log.png</file>
+        <file>icons/settings.png</file>
+    </qresource>
+
+    <qresource prefix="/qml">
+        <file>qml/Main.qml</file>
+    </qresource>
+</RCC>

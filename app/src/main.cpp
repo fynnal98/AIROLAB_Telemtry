@@ -1,5 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <Logger.h>
+using namespace aerolab::Core;
 
 int main(int argc, char *argv[])
 {

@@ -38,12 +38,13 @@ target_link_libraries(apptelemetry
     PRIVATE Qt6::Quick core
 )
 
-if(WIN32)
-    add_custom_command(TARGET apptelemetry POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            $<TARGET_FILE:core>
-            $<TARGET_FILE_DIR:apptelemetry>
-    )
+# if(WIN32)
+#     add_custom_command(TARGET apptelemetry POST_BUILD
+#         COMMAND ${CMAKE_COMMAND} -E copy_if_different
+#             $<TARGET_FILE:core>
+#             $<TARGET_FILE_DIR:apptelemetry>
+#     )
+# endif()
 
 # Installation
 include(GNUInstallDirs)
@@ -53,5 +54,6 @@ install(TARGETS apptelemetry
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
-if(WIN32)
-    install(FILES $<TARGET_FILE:core> DESTINATION ${CMAKE_INSTALL_BINDIR})
+# if(WIN32)
+#     install(FILES $<TARGET_FILE:core> DESTINATION ${CMAKE_INSTALL_BINDIR})
+# endif()

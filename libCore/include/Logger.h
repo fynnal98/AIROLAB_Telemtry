@@ -159,6 +159,7 @@ namespace aerolab::Core
 
         /// Filestream of the Log file
         std::ofstream m_fileStream;
+
         /// LogLevel of the Logger
         E_LogLevel m_logLevel;
         /// Mutex for threadsafe logging

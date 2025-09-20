@@ -1,4 +1,4 @@
 @echo off 
 cd /d %~dp0
-build-msvc\apptelemetry.exe
+build\app\apptelemetry.exe
 pause

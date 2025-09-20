@@ -66,11 +66,11 @@ else()
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
     )
+    # Export für find_package über dein Build-Verzeichnis
+    export(EXPORT coreTargets FILE "${CMAKE_CURRENT_BINARY_DIR}/coreTargets.cmake")
 endif()
 
 # Headers immer installieren
 include(GNUInstallDirs)
 install(DIRECTORY ${CORE_PUBLIC_INCLUDE_DIR}/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-# Export für find_package über dein Build-Verzeichnis
-export(EXPORT coreTargets FILE "${CMAKE_CURRENT_BINARY_DIR}/coreTargets.cmake")

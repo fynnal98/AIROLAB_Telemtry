@@ -18,15 +18,3 @@ std::shared_ptr<JsonConfig> JsonConfig::GetInstance(const std::string& configFil
     return instance;
 
 }
-
-
-QFile file("config.json");
-if (!file.open(QIODevice::ReadOnly)) return;
-
-QByteArray data = file.readAll();
-QJsonDocument doc = QJsonDocument::fromJson(data);
-QJsonObject obj = doc.object();
-
-QString name = obj["name"].toString();
-int id = obj["id"].toInt();
-

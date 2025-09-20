@@ -79,4 +79,11 @@ CMakeLists.txt.user*
 .pch/
 .rcc/
 .uic/
-/build*/
+out/
+build*/
+logs/
+
+
+#VS Code
+.vscode/
+CMakePresets.json

@@ -1,4 +1,0 @@
-2025-09-20T23:43:41+0200|ERROR|main.cpp:22|main|Test Error Message.
-2025-09-20T23:43:41+0200|WARNING|main.cpp:23|main|Test Warning Message.
-2025-09-20T23:43:41+0200|INFO|main.cpp:24|main|Test info message.
-2025-09-20T23:43:41+0200|DEBUG|main.cpp:25|main|Test debug message.

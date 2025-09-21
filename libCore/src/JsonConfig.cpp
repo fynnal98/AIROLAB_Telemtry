@@ -1,20 +1,21 @@
 #include "JsonConfig.h"
 
-
-std::shared_ptr<JsonConfig> JsonConfig::GetInstance(const std::string& configFilePath)
+std::shared_ptr<JsonConfig> JsonConfig::GetInstance()
 {
-    static std::shared_ptr<JsonConfig> instance = nullptr;
-    
-    if (!instance)
-    {
-        if (configFilePath.empty())
-        {   
-           throw std::logic_error("Config file path must be provided on firtst call!"); 
-        }
-
-        
-    }
-
-    return instance;
-
+    if (!s_instance)
+        throw std::runtime_error("Config not yet initialized.");
+    return s_instance;
 }
+
+void JsonConfig::Init(const std::string &configFilePath)
+{
+    std::call_once(s_once, [&]()
+        {
+            if (configFilePath.empty())
+                throw std::logic_error("Config file path is empty");
+            
+            s_instance = std::make_shared<JsonConfig>(new JsonConfig(configFilePath));
+        });
+}
+
+JsonConfig::JsonConfig(const std::string &configFilePath)

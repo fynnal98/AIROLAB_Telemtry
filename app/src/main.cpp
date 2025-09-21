@@ -17,8 +17,9 @@ int main(int argc, char *argv[])
         Qt::QueuedConnection);
     engine.loadFromModule("Telemetry", "Main");
 
-    LOG_INIT("Test.log");
+        
 
+    LOG_INIT("Test.log");
     LOG_ERROR("Test Error Message.");
     LOG_WARNING("Test Warning Message.");
     LOG_INFO("Test info message.");

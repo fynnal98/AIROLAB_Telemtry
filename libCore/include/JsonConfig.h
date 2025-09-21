@@ -1,24 +1,26 @@
-// #pragma once
+#pragma once
 
-// #include <exceptions>
-// #include <memory>
-// #include <QFile>
-// #include <QJsonDocument>
-// #include <QJsonObject>
-// #include <QJsonArray>
-// #include <QJsonValue>
-// #include <string>
+#include <fstream>
+#include <memory>
+#include <nlohmann/json.hpp>
+#include <string>
 
-// class JsonConfig{
-// public:
-//     std::shared_ptr<JsonConfig> GetInstance(const std::string& configFilePath = "");
+class JsonConfig{
+public:
+    static std::shared_ptr<JsonConfig> GetInstance();
+    void Init(const std::string &configFilePath = "");
 
-//     ~JsonConfig();
-//     JsonConfig(const JsonConfig&) = delete;
-//     JsonConfig& operator=(const JsonConfig&) = delete;
+    ~JsonConfig();
+    JsonConfig(const JsonConfig&) = delete;
+    JsonConfig& operator=(const JsonConfig&) = delete;
 
-// private:
-//     JsonConfig();
+private:
+    JsonConfig(const std::string &configFilePath);
 
-//     QFile m_configFile;
-// }
+    std::string m_configFilePath;
+
+    nlohmann::json m_json;
+
+    static std::once_flag s_once;
+    static std::shared_ptr<JsonConfig> s_instance;
+};

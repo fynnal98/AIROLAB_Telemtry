@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.16)
 
 # Umschalter: heute Header-only, später SHARED
-option(CORE_HEADER_ONLY "Build core as header-only interface" ON)
+option(CORE_HEADER_ONLY "Build core as header-only interface" OFF)
 
 set(TARGET core)
 
@@ -11,8 +11,7 @@ set(CORE_PUBLIC_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # Wenn du später .cpp ergänzt, trag sie hier ein
 set(CORE_SOURCES
-    # src/foo.cpp
-    # src/bar.cpp
+    src/Logger.cpp
 )
 
 if(CORE_HEADER_ONLY)
@@ -73,4 +72,3 @@ endif()
 # Headers immer installieren
 include(GNUInstallDirs)
 install(DIRECTORY ${CORE_PUBLIC_INCLUDE_DIR}/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-

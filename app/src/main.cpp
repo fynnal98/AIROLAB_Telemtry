@@ -1,6 +1,7 @@
+#include <JsonConfig.h>
+#include <Logger.h>
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include <Logger.h>
 using namespace aerolab::Core;
 
 int main(int argc, char *argv[])
@@ -17,13 +18,22 @@ int main(int argc, char *argv[])
         Qt::QueuedConnection);
     engine.loadFromModule("Telemetry", "Main");
 
-        
+    // Config test
+    std::string configPath = "config.json";
+    JsonConfig::Init(configPath);
 
-    LOG_INIT("Test.log");
-    LOG_ERROR("Test Error Message.");
-    LOG_WARNING("Test Warning Message.");
-    LOG_INFO("Test info message.");
-    LOG_DEBUG("Test debug message.");
 
+    std::shared_ptr<JsonConfig> config = nullptr;
+
+    try
+    {
+        config = JsonConfig::GetInstance();
+    }
+    catch (...)
+    {
+        LOG_ERROR("Could not fetch Instance");
+    }
+
+    
     return app.exec();
 }

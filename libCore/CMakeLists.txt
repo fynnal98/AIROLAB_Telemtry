@@ -1,7 +1,11 @@
 # core/CMakeLists.txt
 cmake_minimum_required(VERSION 3.16)
 
+project(core LANGUAGES CXX)
 set(TARGET core)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Public Headers liegen unter core/include/...
 set(CORE_PUBLIC_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
@@ -9,6 +13,7 @@ set(CORE_PUBLIC_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 # Wenn du später .cpp ergänzt, trag sie hier ein
 set(CORE_SOURCES
     src/Logger.cpp
+    src/JsonConfig.cpp
 )
 
 add_library(${TARGET} SHARED
@@ -20,7 +25,7 @@ target_include_directories(${TARGET}
         $<BUILD_INTERFACE:${CORE_PUBLIC_INCLUDE_DIR}>
         $<INSTALL_INTERFACE:include>
         ${CMAKE_CURRENT_BINARY_DIR}
-        $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/external>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/external>
 )
 
 # Export-Makro generieren (CORE_EXPORT)
@@ -59,5 +64,7 @@ export(EXPORT coreTargets FILE "${CMAKE_CURRENT_BINARY_DIR}/coreTargets.cmake")
 
 
 # Headers immer installieren
-include(GNUInstallDirs)
 install(DIRECTORY ${CORE_PUBLIC_INCLUDE_DIR}/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/external/nlohmann/
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/nlohmann)

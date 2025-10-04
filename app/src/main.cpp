@@ -8,6 +8,8 @@ int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
+    LOG_INIT("logs.txt");
+
     QQmlApplicationEngine engine;
     QObject::connect(
         &engine,
@@ -19,9 +21,8 @@ int main(int argc, char *argv[])
     engine.loadFromModule("Telemetry", "Main");
 
     // Config test
-    std::string configPath = "config.json";
+    std::string configPath = ".\\config\\config.json";
     JsonConfig::Init(configPath);
-
 
     std::shared_ptr<JsonConfig> config = nullptr;
 
@@ -34,6 +35,5 @@ int main(int argc, char *argv[])
         LOG_ERROR("Could not fetch Instance");
     }
 
-    
     return app.exec();
 }

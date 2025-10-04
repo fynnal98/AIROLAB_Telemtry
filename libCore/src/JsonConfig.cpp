@@ -1,5 +1,7 @@
 #include "JsonConfig.h"
 
+using namespace aerolab::Core;
+
 std::shared_ptr<JsonConfig> JsonConfig::s_instance = nullptr;
 std::once_flag JsonConfig::s_once{};
 

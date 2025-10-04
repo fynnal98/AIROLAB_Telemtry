@@ -21,6 +21,12 @@ qt_add_qml_module(apptelemetry
         qml/Main.qml
 )
 
+add_custom_command(TARGET apptelemetry POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${CMAKE_SOURCE_DIR}/config/config.json
+        $<TARGET_FILE_DIR:apptelemetry>/config.json
+)
+
 # Ressourcen einbinden
 qt_add_resources(APP_RESOURCES resources.qrc)
 target_sources(apptelemetry PRIVATE ${APP_RESOURCES})
@@ -53,6 +59,8 @@ install(TARGETS apptelemetry
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
+
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/config DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 # if(WIN32)
 #     install(FILES $<TARGET_FILE:core> DESTINATION ${CMAKE_INSTALL_BINDIR})

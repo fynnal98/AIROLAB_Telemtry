@@ -8,6 +8,9 @@
 #include <string>
 #include <sstream>
 
+namespace aerolab::Core
+{
+
 /**
  * @brief The JsonConfig Class
  * @details This class provides functions to handle config parameters from a json config file.
@@ -110,3 +113,5 @@ private:
     /// singleton instance
     static std::shared_ptr<JsonConfig> s_instance;
 };
+
+}

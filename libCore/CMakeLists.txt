@@ -12,9 +12,14 @@ set(CORE_PUBLIC_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # Wenn du später .cpp ergänzt, trag sie hier ein
 set(CORE_SOURCES
+    src/AsyncExecutor.cpp
+    src/InputManager.cpp
     src/Logger.cpp
     src/JsonConfig.cpp
 )
+
+find_package(Boost 1.82.0 REQUIRED)
+find_package(Threads)
 
 add_library(${TARGET} SHARED
     ${CORE_SOURCES}
@@ -28,6 +33,18 @@ target_include_directories(${TARGET}
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/external>
 )
 
+if(TARGET Boost::headers)
+    target_link_libraries(${TARGET} PUBLIC Boost::headers)
+elseif(TARGET Boost::boost)
+    target_link_libraries(${TARGET} PUBLIC Boost::boost)
+else()
+    target_include_directories(${TARGET} PUBLIC ${Boost_INCLUDE_DIRS})
+endif()
+
+if(WIN32)
+    target_link_libraries(${TARGET} PUBLIC ws2_32)
+endif()
+
 # Export-Makro generieren (CORE_EXPORT)
 include(GenerateExportHeader)
 generate_export_header(${TARGET}
@@ -40,7 +57,7 @@ target_include_directories(${TARGET}
 
 target_compile_definitions(${TARGET}
     PRIVATE CORE_BUILD
-    PUBLIC CORE_DLL
+    PUBLIC BOOST_ASIO_NO_DEPRECATED CORE_DLL
 )
 
 set_target_properties(${TARGET} PROPERTIES

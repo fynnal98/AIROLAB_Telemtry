@@ -13,7 +13,7 @@ void logReceivedData(const std::vector<uint8_t> &data);
 InputManager::InputManager(boost::asio::any_io_executor exec, std::string ip, int port) : m_ioExecutor(exec),
                                                                                           m_socket(m_ioExecutor)
 {
-    m_localEndpoint = boost::asio::ip::udp::endpoint(boost::asio::ip::address_v4::from_string(ip), port);
+    m_localEndpoint = boost::asio::ip::udp::endpoint(boost::asio::ip::make_address_v4(ip), port);
     LOG_INFO("Created InputManager");
 }
 
@@ -63,7 +63,7 @@ void InputManager::Start()
     }
 
     LOG_INFO("Starting to receive Data");
-    receiveData;
+    receiveData();
 
     LOG_INFO("*** InputManager started ***\n");
 }

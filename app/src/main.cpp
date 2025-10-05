@@ -1,15 +1,17 @@
+#include "TelemetryDataHandler.h"
+
+#include <AsyncExecutor.h>
 #include <JsonConfig.h>
 #include <Logger.h>
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+
 using namespace aerolab::Core;
+using namespace aerolab::Telemetry;
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
-
-    LOG_INIT("logs.txt");
-
     QQmlApplicationEngine engine;
     QObject::connect(
         &engine,
@@ -19,6 +21,8 @@ int main(int argc, char *argv[])
         { QCoreApplication::exit(-1); },
         Qt::QueuedConnection);
     engine.loadFromModule("Telemetry", "Main");
+
+    LOG_INIT("logs.txt");
 
     // Config test
     std::string configPath = ".\\config\\config.json";
@@ -34,6 +38,12 @@ int main(int argc, char *argv[])
     {
         LOG_ERROR("Could not fetch Instance");
     }
+
+    AsyncExecutor executor;
+    executor.Start();
+
+    auto pTelemetryDataHandler = TelemetryDataHandler::GetInstance();
+    pTelemetryDataHandler->Start(executor);
 
     return app.exec();
 }
